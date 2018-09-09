@@ -1,6 +1,7 @@
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
@@ -9,11 +10,9 @@ public class CalculatorFrame extends JFrame {
     // frame dimensions
     private static final int FRAME_WIDTH = 248;
     private static final int FRAME_HEIGHT = 300;
-
     // panel dimensions
     private static final int PANEL_WIDTH = FRAME_WIDTH;
     private static final int PANEL_HEIGHT = 60;
-
     // menu dimensions
     private static final int MENU_WIDTH = FRAME_WIDTH;
     private static final int MENU_HEIGHT = FRAME_HEIGHT - PANEL_HEIGHT;
@@ -31,10 +30,11 @@ public class CalculatorFrame extends JFrame {
 
     // constructor
     public CalculatorFrame() {
+        calculation = 0;
+
         setSize(FRAME_WIDTH, FRAME_HEIGHT);
         initializeButtons();
-
-        calculation = 0;
+        addButtonListeners();
 
         createScreen();
         createMenu();
@@ -164,6 +164,33 @@ public class CalculatorFrame extends JFrame {
         dot.setOpaque(true);
     }
 
+    public void addButtonListeners(){
+        ActionListener numListener = new NumberButtonListener();
+
+        b0.addActionListener(numListener);
+        b1.addActionListener(numListener);
+        b2.addActionListener(numListener);
+        b3.addActionListener(numListener);
+        b4.addActionListener(numListener);
+        b5.addActionListener(numListener);
+        b6.addActionListener(numListener);
+        b7.addActionListener(numListener);
+        b8.addActionListener(numListener);
+        b9.addActionListener(numListener);
+
+        ActionListener opListener = new OperatorButtonListener();
+
+        add.addActionListener(opListener);
+        sub.addActionListener(opListener);
+        mult.addActionListener(opListener);
+        div.addActionListener(opListener);
+        mod.addActionListener(opListener);
+        eq.addActionListener(opListener);
+        ac.addActionListener(opListener);
+        dot.addActionListener(opListener);
+        neg.addActionListener(opListener);
+    }
+
     public void createScreen(){
         JLabel label;
         label = new JLabel();
@@ -182,6 +209,7 @@ public class CalculatorFrame extends JFrame {
     }
 
     public void createMenu(){
+
         menuPanel = new JPanel();
         menuPanel.setPreferredSize(new Dimension(MENU_WIDTH, MENU_HEIGHT));
         menuPanel.setLayout(new GridLayout(5, 4));
@@ -210,4 +238,28 @@ public class CalculatorFrame extends JFrame {
         menuPanel.add(dot);
         menuPanel.add(eq);
     }
+
+    private class NumberButtonListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            String command = e.getActionCommand();
+            calculation = Double.parseDouble(command);
+            updateCalculationOnScreenPanel();
+        }
+    }
+
+    private class OperatorButtonListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            String command = e.getActionCommand();
+            JOptionPane.showMessageDialog(menuPanel, command);
+        }
+    }
+
+    public void updateCalculationOnScreenPanel() {
+        JLabel labelPanel = (JLabel) screenPanel.getComponents()[0];
+        labelPanel.setText(Double.toString(calculation));
+        repaint();
+    }
+
 }
