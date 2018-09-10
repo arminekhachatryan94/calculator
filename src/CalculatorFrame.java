@@ -40,6 +40,7 @@ public class CalculatorFrame extends JFrame {
     private static String num2;
     private static boolean num2Set;
     private static boolean opSet;
+    private static boolean solved;
 
     // constructor
     public CalculatorFrame() {
@@ -48,6 +49,7 @@ public class CalculatorFrame extends JFrame {
         op = "=";
         num2Set = false;
         opSet = false;
+        solved = false;
 
         setSize(FRAME_WIDTH, FRAME_HEIGHT);
         initializeButtons();
@@ -263,8 +265,13 @@ public class CalculatorFrame extends JFrame {
             // JOptionPane.showMessageDialog(menuPanel, calculation + " " + opSet + ": " + op + " " + num2Set + ": " + num2);
 
             String command = e.getActionCommand();
-            BigDecimal temp = new BigDecimal(Integer.parseInt(command));
-            if( opSet == false ){
+
+            if( solved && opSet == false ){
+                calculation = command;
+                solved = false;
+                updateCalculationOnScreenPanel(calculation);
+            }
+            else if( opSet == false ){
                 if( calculation == "0" ){
                     calculation = command;
                 } else {
@@ -311,6 +318,7 @@ public class CalculatorFrame extends JFrame {
             } else if( command == "=" ) {
                 evaluate();
                 updateCalculationOnScreenPanel(calculation);
+                solved = true;
             } else if( command == "+" || command == "-" || command == "x"
                     || command == "/" || command == "%" ) {
                 if ( !opSet ) {
@@ -322,6 +330,7 @@ public class CalculatorFrame extends JFrame {
                         updateCalculationOnScreenPanel(calculation);
                         op = command;
                         opSet = true;
+                        solved = true;
                     } else {
                         op = command;
                     }
@@ -333,6 +342,11 @@ public class CalculatorFrame extends JFrame {
                         num2 += '.';
                         updateCalculationOnScreenPanel(num2);
                     }
+                } else if( solved && opSet ) {
+                    solved = false;
+                    num2Set = true;
+                    num2 += ".";
+                    updateCalculationOnScreenPanel(num2);
                 } else {
                     if( calculation.indexOf('.') < 0 ){
                         calculation += '.';
@@ -390,6 +404,7 @@ public class CalculatorFrame extends JFrame {
             op = "=";
             opSet = false;
             num2Set = false;
+            solved = true;
         }
     }
 
