@@ -28,23 +28,23 @@ public class CalculatorFrame extends JFrame {
 
     // buttons
     private static JButton b0, b1, b2, b3, b4, b5, b6, b7, b8, b9;
-    private static JButton add, sub, mult, div, mod, eq, ac, /* dot ,*/ neg;
+    private static JButton add, sub, mult, div, mod, eq, ac, dot , neg;
 
     // calculator
     private static JPanel screenPanel;
     private static JPanel menuPanel;
 
     // calculation variable
-    private static BigDecimal calculation;
+    private static String calculation;
     private static String op;
-    private static BigDecimal num2;
+    private static String num2;
     private static boolean num2Set;
     private static boolean opSet;
 
     // constructor
     public CalculatorFrame() {
-        calculation = new BigDecimal(0);
-        num2 = new BigDecimal(0);
+        calculation = "0";
+        num2 = "0";
         op = "=";
         num2Set = false;
         opSet = false;
@@ -174,13 +174,12 @@ public class CalculatorFrame extends JFrame {
         neg.setBorderPainted(false);
         neg.setOpaque(true);
 
-        /*
         dot = new JButton(".");
         dot.setBackground(new Color(224, 224, 224));
         dot.setForeground(Color.black);
         dot.setBorderPainted(false);
         dot.setOpaque(true);
-        */
+
     }
 
     public void addButtonListeners(){
@@ -206,7 +205,7 @@ public class CalculatorFrame extends JFrame {
         mod.addActionListener(opListener);
         eq.addActionListener(opListener);
         ac.addActionListener(opListener);
-        // dot.addActionListener(opListener);
+        dot.addActionListener(opListener);
         neg.addActionListener(opListener);
     }
 
@@ -254,7 +253,7 @@ public class CalculatorFrame extends JFrame {
         menuPanel.add(add);
 
         menuPanel.add(b0);
-        // menuPanel.add(dot);
+        menuPanel.add(dot);
         menuPanel.add(eq);
     }
 
@@ -266,13 +265,19 @@ public class CalculatorFrame extends JFrame {
             String command = e.getActionCommand();
             BigDecimal temp = new BigDecimal(Integer.parseInt(command));
             if( opSet == false ){
-                calculation = calculation.multiply(new BigDecimal(10));
-                calculation = calculation.add(temp);
+                if( calculation == "0" ){
+                    calculation = command;
+                } else {
+                    calculation += command;
+                }
                 updateCalculationOnScreenPanel(calculation);
             } else {
-                num2Set = true;
-                num2 = num2.multiply(new BigDecimal(10));
-                num2 = num2.add(temp);
+                if( num2 == "0" ){
+                    num2 = command;
+                    num2Set = true;
+                } else {
+                    num2 += command;
+                }
                 updateCalculationOnScreenPanel(num2);
             }
         }
@@ -285,18 +290,22 @@ public class CalculatorFrame extends JFrame {
 
             String command = e.getActionCommand();
             if( command == "AC" ) {
-                calculation = new BigDecimal(0);
-                num2 = new BigDecimal(0);
+                calculation = "0";
+                num2 = "0";
                 op = "=";
                 opSet = false;
                 num2Set = false;
                 updateCalculationOnScreenPanel(calculation);
             } else if( command == "±" ) {
                 if (num2Set) {
-                    num2 = num2.multiply(new BigDecimal(-1));
+                    BigDecimal n2 = new BigDecimal(num2);
+                    n2 = n2.multiply(new BigDecimal(-1));
+                    num2 = n2.toString();
                     updateCalculationOnScreenPanel(num2);
                 } else {
-                    calculation = calculation.multiply(new BigDecimal(-1));
+                    BigDecimal calc = new BigDecimal(calculation);
+                    calc = calc.multiply(new BigDecimal(-1));
+                    calculation = calc.toString();
                     updateCalculationOnScreenPanel(calculation);
                 }
             } else if( command == "=" ) {
@@ -318,6 +327,20 @@ public class CalculatorFrame extends JFrame {
                     }
                 }
             }
+            else if( command == ".") {
+                if( num2Set ){
+                    if( num2.indexOf('.') < 0 ){
+                        num2 += '.';
+                        updateCalculationOnScreenPanel(num2);
+                    }
+                } else {
+                    if( calculation.indexOf('.') < 0 ){
+                        calculation += '.';
+                        updateCalculationOnScreenPanel(calculation);
+                        JOptionPane.showMessageDialog(menuPanel,"calculation");
+                    }
+                }
+            }
             else {
                 // JOptionPane.showMessageDialog(menuPanel,calculation + " " + opSet + ": " + op + " " + num2Set + ": " + num2);
                 JOptionPane.showMessageDialog(menuPanel,"Invalid operator");
@@ -325,12 +348,13 @@ public class CalculatorFrame extends JFrame {
         }
     }
 
-    public void updateCalculationOnScreenPanel(BigDecimal val) {
+    public void updateCalculationOnScreenPanel(String val) {
         JLabel labelPanel = (JLabel) screenPanel.getComponents()[0];
-        if( val.remainder(new BigDecimal(1)) != new BigDecimal(0) ) {
-            labelPanel.setText(val + "");
+        BigDecimal n = new BigDecimal(val);
+        if( n.remainder(new BigDecimal(1)) != new BigDecimal(0) ) {
+            labelPanel.setText(val.toString());
         } else {
-            labelPanel.setText(val + "");
+            labelPanel.setText(val.toString());
         }
         repaint();
     }
@@ -338,24 +362,31 @@ public class CalculatorFrame extends JFrame {
     public void evaluate() {
         // JOptionPane.showMessageDialog(menuPanel,calculation + " " + op + " " + num2);
         if( opSet ){
+            BigDecimal calc = new BigDecimal(calculation);
+            BigDecimal n2 = new BigDecimal(num2);
             switch (op) {
                 case "+":
-                    calculation = calculation.add(num2);
+                    calc = calc.add(n2);
+                    calculation = calc.toString();
                     break;
                 case "-":
-                    calculation = calculation.subtract(num2);
+                    calc = calc.subtract(n2);
+                    calculation = calc.toString();
                     break;
                 case "x":
-                    calculation = calculation.multiply(num2);
+                    calc = calc.multiply(n2);
+                    calculation = calc.toString();
                     break;
                 case "/":
-                    calculation = calculation.divide(num2);
+                    calc = calc.divide(n2);
+                    calculation = calc.toString();
                     break;
                 case "%":
-                    calculation = calculation.remainder(num2);
+                    calc = calc.remainder(n2);
+                    calculation = calc.toString();
                     break;
             }
-            num2 = new BigDecimal(0);
+            num2 = "0";
             op = "=";
             opSet = false;
             num2Set = false;
