@@ -5,6 +5,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.math.MathContext;
+import java.math.RoundingMode;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -337,22 +339,34 @@ public class CalculatorFrame extends JFrame {
                 }
             }
             else if( command == ".") {
-                if( num2Set ){
-                    if( num2.indexOf('.') < 0 ){
-                        num2 += '.';
+                if( !solved ){
+                    // op is set & we are at num2
+                    if( opSet ){
+                        if( num2Set && num2.indexOf('.') < 0 ){
+                            num2 += ".";
+                        } else if( num2.indexOf('.') < 0 ){
+                            num2 = "0.";
+                        }
                         updateCalculationOnScreenPanel(num2);
-                    }
-                } else if( solved && opSet ) {
-                    solved = false;
-                    num2Set = true;
-                    num2 += ".";
-                    updateCalculationOnScreenPanel(num2);
-                } else {
-                    if( calculation.indexOf('.') < 0 ){
-                        calculation += '.';
+                    } else { // op is not set & we are at calc
+                        if( calculation.indexOf('.') < 0 ){
+                            calculation += ".";
+                        }
                         updateCalculationOnScreenPanel(calculation);
-                        JOptionPane.showMessageDialog(menuPanel,"calculation");
                     }
+                } else {
+                    if( opSet ){
+                        if( num2Set && num2.indexOf('.') < 0 ){
+                            num2 += ".";
+                        } else if( num2.indexOf('.') < 0 ){
+                            num2 = "0.";
+                        }
+                        updateCalculationOnScreenPanel(num2);
+                    } else {
+                        calculation = "0.";
+                        updateCalculationOnScreenPanel(calculation);
+                    }
+                    solved = false;
                 }
             }
             else {
@@ -365,11 +379,11 @@ public class CalculatorFrame extends JFrame {
     public void updateCalculationOnScreenPanel(String val) {
         JLabel labelPanel = (JLabel) screenPanel.getComponents()[0];
         BigDecimal n = new BigDecimal(val);
-        if( n.remainder(new BigDecimal(1)) != new BigDecimal(0) ) {
-            labelPanel.setText(val.toString());
-        } else {
-            labelPanel.setText(val.toString());
-        }
+        // if( n.remainder(new BigDecimal(1)) != new BigDecimal(0) ) {
+            labelPanel.setText(val);
+        /* } else {
+            labelPanel.setText(val);
+        } */
         repaint();
     }
 
@@ -378,28 +392,44 @@ public class CalculatorFrame extends JFrame {
         if( opSet ){
             BigDecimal calc = new BigDecimal(calculation);
             BigDecimal n2 = new BigDecimal(num2);
-            switch (op) {
-                case "+":
-                    calc = calc.add(n2);
-                    calculation = calc.toString();
-                    break;
-                case "-":
-                    calc = calc.subtract(n2);
-                    calculation = calc.toString();
-                    break;
-                case "x":
-                    calc = calc.multiply(n2);
-                    calculation = calc.toString();
-                    break;
-                case "/":
-                    calc = calc.divide(n2);
-                    calculation = calc.toString();
-                    break;
-                case "%":
-                    calc = calc.remainder(n2);
-                    calculation = calc.toString();
-                    break;
-            }
+            // try {
+                switch (op) {
+                    case "+":
+                        calc = calc.add(n2);
+                        calculation = calc.toString();
+                        break;
+                    case "-":
+                        calc = calc.subtract(n2);
+                        calculation = calc.toString();
+                        break;
+                    case "x":
+                        calc = calc.multiply(n2);
+                        calculation = calc.toString();
+                        break;
+                    case "/":
+                        if( n2 == new BigDecimal("0") ){
+                            calculation = "0";
+                            JOptionPane.showMessageDialog(menuPanel, "Division by zero.");
+                        } else {
+                            calc = calc.divide(n2);
+                            calculation = calc.toString();
+                        }
+                    case "%":
+                        calc = calc.remainder(n2);
+                        calculation = calc.toString();
+                        break;
+                }
+            /* } catch(Exception e){
+                if( op == "/" ) {
+                    if( n2 == new BigDecimal("0") ){
+                        JOptionPane.showMessageDialog(menuPanel, "division by zero");
+                    } else {
+                        BigDecimal calc2 = new BigDecimal(calculation);
+                        calc2.setScale(5).divide(n2, BigDecimal.ROUND_HALF_UP);
+                        calculation = calc.toString();
+                    }
+                }
+            }*/
             num2 = "0";
             op = "=";
             opSet = false;
