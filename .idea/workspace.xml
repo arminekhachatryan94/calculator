@@ -3,9 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="cc05b615-f332-4b52-990f-6c08d808e119" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/calculator/CalculatorFrame$NumberButtonListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/calculator/CalculatorFrame$NumberButtonListener.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/calculator/CalculatorFrame$OperatorButtonListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/calculator/CalculatorFrame$OperatorButtonListener.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/calculator/CalculatorFrame.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/calculator/CalculatorFrame.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/CalculatorFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/CalculatorFrame.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -43,12 +40,12 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="10925" />
+          <entry key="java" value="10996" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="10925" />
+          <entry key="JAVA" value="10996" />
         </counts>
       </usages-collector>
     </session>
@@ -58,8 +55,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/CalculatorFrame.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="152">
-              <caret line="345" column="40" lean-forward="true" selection-start-line="345" selection-start-column="40" selection-end-line="345" selection-end-column="40" />
+            <state relative-caret-position="194">
+              <caret line="434" lean-forward="true" selection-start-line="434" selection-end-line="434" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -203,12 +200,12 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.44720498" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.20962733" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39906833" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Terminal" order="7" weight="0.124223605" />
+      <window_info anchor="bottom" id="Terminal" order="7" weight="0.5372671" />
       <window_info anchor="bottom" id="Event Log" order="8" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="9" />
       <window_info anchor="bottom" id="Messages" order="10" weight="0.32919255" />
@@ -344,8 +341,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/CalculatorFrame.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="152">
-          <caret line="345" column="40" lean-forward="true" selection-start-line="345" selection-start-column="40" selection-end-line="345" selection-end-column="40" />
+        <state relative-caret-position="194">
+          <caret line="434" lean-forward="true" selection-start-line="434" selection-end-line="434" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

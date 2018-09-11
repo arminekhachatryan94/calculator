@@ -430,6 +430,9 @@ public class CalculatorFrame extends JFrame {
                     }
                 }
             }*/
+
+            calculation = new BigDecimal(calculation).stripTrailingZeros().toString();
+
             num2 = "0";
             op = "=";
             opSet = false;
