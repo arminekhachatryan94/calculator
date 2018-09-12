@@ -43,6 +43,7 @@ public class CalculatorFrame extends JFrame {
     private static boolean num2Set;
     private static boolean opSet;
     private static boolean solved;
+    private static boolean div_0;
 
     // constructor
     public CalculatorFrame() {
@@ -52,6 +53,7 @@ public class CalculatorFrame extends JFrame {
         num2Set = false;
         opSet = false;
         solved = false;
+        div_0 = false;
 
         setSize(FRAME_WIDTH, FRAME_HEIGHT);
         initializeButtons();
@@ -379,9 +381,16 @@ public class CalculatorFrame extends JFrame {
     public void updateCalculationOnScreenPanel(String val) {
         JLabel labelPanel = (JLabel) screenPanel.getComponents()[0];
         BigDecimal n = new BigDecimal(val);
-        // if( n.remainder(new BigDecimal(1)) != new BigDecimal(0) ) {
+
+        if( div_0 ){
+            labelPanel.setText("NaN");
+            div_0 = false;
+        } else {
             labelPanel.setText(val);
-        /* } else {
+        }
+        /* if( n.remainder(new BigDecimal(1)) != new BigDecimal(0) ) {
+            labelPanel.setText(val);
+         } else {
             labelPanel.setText(val);
         } */
         repaint();
@@ -409,14 +418,21 @@ public class CalculatorFrame extends JFrame {
                     case "/":
                         if( n2 == new BigDecimal("0") ){
                             calculation = "0";
+                            div_0 = true;
                             JOptionPane.showMessageDialog(menuPanel, "Division by zero.");
                         } else {
                             calc = calc.divide(n2);
                             calculation = calc.toString();
                         }
+                        break;
                     case "%":
-                        calc = calc.remainder(n2);
-                        calculation = calc.toString();
+                        if( n2 == new BigDecimal("0") ){
+                            calculation = "0";
+                            div_0 = true;
+                        } else {
+                            calc = calc.remainder(n2);
+                            calculation = calc.toString();
+                        }
                         break;
                 }
             /* } catch(Exception e){

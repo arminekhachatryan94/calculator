@@ -3,6 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="cc05b615-f332-4b52-990f-6c08d808e119" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/calculator/CalculatorFrame$NumberButtonListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/calculator/CalculatorFrame$NumberButtonListener.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/calculator/CalculatorFrame$OperatorButtonListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/calculator/CalculatorFrame$OperatorButtonListener.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/calculator/CalculatorFrame.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/calculator/CalculatorFrame.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/CalculatorFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/CalculatorFrame.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -16,14 +19,15 @@
     <session id="238253219">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="8" />
+          <entry key="project.closed" value="9" />
           <entry key="project.open.time.10" value="1" />
           <entry key="project.open.time.12" value="1" />
           <entry key="project.open.time.33" value="1" />
           <entry key="project.open.time.39" value="2" />
+          <entry key="project.open.time.42" value="1" />
           <entry key="project.open.time.7" value="2" />
           <entry key="project.open.time.8" value="1" />
-          <entry key="project.opened" value="9" />
+          <entry key="project.opened" value="10" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -40,12 +44,12 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="10996" />
+          <entry key="java" value="11205" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="10996" />
+          <entry key="JAVA" value="11205" />
         </counts>
       </usages-collector>
     </session>
@@ -55,8 +59,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/CalculatorFrame.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="194">
-              <caret line="434" lean-forward="true" selection-start-line="434" selection-end-line="434" />
+            <state relative-caret-position="266">
+              <caret line="421" column="90" lean-forward="true" selection-start-line="421" selection-start-column="90" selection-end-line="421" selection-end-column="90" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -109,10 +113,10 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="72" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="306" />
     <option name="y" value="23" />
-    <option name="width" value="1208" />
+    <option name="width" value="974" />
     <option name="height" value="736" />
   </component>
   <component name="ProjectView">
@@ -187,8 +191,17 @@
     </task>
     <servers />
   </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1280" height="736" extended-state="6" />
+    <frame x="306" y="23" width="974" height="736" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" weight="0.24388185" />
@@ -200,14 +213,14 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.20962733" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.20962733" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39906833" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Terminal" order="7" weight="0.5372671" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.32919255" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="7" visible="true" weight="0.15372671" />
       <window_info anchor="bottom" id="Event Log" order="8" side_tool="true" />
-      <window_info anchor="bottom" id="Version Control" order="9" />
+      <window_info anchor="bottom" id="Version Control" order="9" weight="0.32919255" />
       <window_info anchor="bottom" id="Messages" order="10" weight="0.32919255" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -341,8 +354,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/CalculatorFrame.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="194">
-          <caret line="434" lean-forward="true" selection-start-line="434" selection-end-line="434" />
+        <state relative-caret-position="266">
+          <caret line="421" column="90" lean-forward="true" selection-start-line="421" selection-start-column="90" selection-end-line="421" selection-end-column="90" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
