@@ -5,8 +5,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.math.MathContext;
-import java.math.RoundingMode;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -190,8 +190,11 @@ public class CalculatorFrame extends JFrame {
 
     public void addButtonListeners(){
         ActionListener numListener = new NumberButtonListener();
+        KeyListener keyListener = new ButtonKeyListener();
 
         b0.addActionListener(numListener);
+        b0.addKeyListener(keyListener);
+
         b1.addActionListener(numListener);
         b2.addActionListener(numListener);
         b3.addActionListener(numListener);
@@ -378,6 +381,21 @@ public class CalculatorFrame extends JFrame {
         }
     }
 
+    private class ButtonKeyListener implements KeyListener {
+        @Override
+        public void keyTyped( KeyEvent evt ) {
+            JOptionPane.showMessageDialog(menuPanel, evt.getKeyChar());
+        }
+
+        @Override
+        public void keyPressed( KeyEvent evt ) {
+        }
+
+        @Override
+        public void keyReleased( KeyEvent evt ) {
+        }
+    }
+
     public void updateCalculationOnScreenPanel(String val) {
         JLabel labelPanel = (JLabel) screenPanel.getComponents()[0];
         BigDecimal n = new BigDecimal(val);
@@ -421,8 +439,11 @@ public class CalculatorFrame extends JFrame {
                             div_0 = true;
                             JOptionPane.showMessageDialog(menuPanel, "Division by zero.");
                         } else {
-                            calc = calc.divide(n2);
+                            double quotient = calc.doubleValue()/n2.doubleValue();
+                            calc = new BigDecimal(quotient);
                             calculation = calc.toString();
+                            //calc = calc.divide(n2);
+                            //calculation = calc.toString();
                         }
                         break;
                     case "%":
@@ -430,7 +451,12 @@ public class CalculatorFrame extends JFrame {
                             calculation = "0";
                             div_0 = true;
                         } else {
+                            /*
                             calc = calc.remainder(n2);
+                            calculation = calc.toString();
+                            */
+                            double remainder = calc.doubleValue()%n2.doubleValue();
+                            calc = new BigDecimal(remainder);
                             calculation = calc.toString();
                         }
                         break;
