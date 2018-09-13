@@ -434,10 +434,10 @@ public class CalculatorFrame extends JFrame {
                         calculation = calc.toString();
                         break;
                     case "/":
-                        if( n2 == new BigDecimal("0") ){
+                        if( n2.doubleValue() == 0 ){
                             calculation = "0";
                             div_0 = true;
-                            JOptionPane.showMessageDialog(menuPanel, "Division by zero.");
+                            // JOptionPane.showMessageDialog(menuPanel, "Division by zero.");
                         } else {
                             double quotient = calc.doubleValue()/n2.doubleValue();
                             calc = new BigDecimal(quotient);
@@ -447,7 +447,7 @@ public class CalculatorFrame extends JFrame {
                         }
                         break;
                     case "%":
-                        if( n2 == new BigDecimal("0") ){
+                        if( n2.doubleValue() == 0 ){
                             calculation = "0";
                             div_0 = true;
                         } else {
