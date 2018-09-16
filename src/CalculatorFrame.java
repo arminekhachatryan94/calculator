@@ -3,11 +3,10 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.SwingConstants;
 
 public class CalculatorFrame extends JFrame {
 
@@ -23,13 +22,16 @@ public class CalculatorFrame extends JFrame {
 
     // buttons
     private static CalculatorButton buttons[];
-    private static CalculatorButton add, subtract, multiply, divide, mod, eq, ac, dot, neg;
+    private static CalculatorButton add, subtract, multiply, divide, mod, eq, ac, dot, neg, del;
 
     // calculator
     public static JLabel screenLabel;
     public static JPanel screenPanel;
-    public static JPanel menuPanel;
+    public static JPanel numPanel;
     public static Solver solver;
+
+    // state of keys
+    public boolean shift;
 
     // constructor
     public CalculatorFrame() {
@@ -41,7 +43,7 @@ public class CalculatorFrame extends JFrame {
         createMenu();
 
         getContentPane().add(screenPanel, BorderLayout.NORTH);
-        getContentPane().add(menuPanel, BorderLayout.PAGE_END);
+        getContentPane().add(numPanel, BorderLayout.PAGE_END);
         setResizable(false);
         pack();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -63,6 +65,7 @@ public class CalculatorFrame extends JFrame {
         ac = new CalculatorButton("AC", screenLabel, solver);
         dot = new CalculatorButton(".", screenLabel, solver);
         neg = new CalculatorButton("±", screenLabel, solver);
+        del = new CalculatorButton("←", screenLabel, solver);
     }
 
     public void createScreen(){
@@ -84,50 +87,103 @@ public class CalculatorFrame extends JFrame {
     }
 
     public void createMenu(){
-        menuPanel = new JPanel();
-        menuPanel.setPreferredSize(new Dimension(MENU_WIDTH, MENU_HEIGHT));
-        menuPanel.setLayout(new GridLayout(5, 4));
+        numPanel = new JPanel();
+        numPanel.setPreferredSize(new Dimension(MENU_WIDTH, MENU_HEIGHT));
+        numPanel.setLayout(new GridLayout(5, 4));
 
-        menuPanel.add(ac);
-        menuPanel.add(neg);
-        menuPanel.add(mod);
-        menuPanel.add(divide);
+        CalculatorKeyListener keyListener = new CalculatorKeyListener();
+        numPanel.addKeyListener(keyListener);
+        numPanel.setFocusable(true);
+        numPanel.requestFocusInWindow();
 
-        menuPanel.add(buttons[7]);
-        menuPanel.add(buttons[8]);
-        menuPanel.add(buttons[9]);
-        menuPanel.add(multiply);
+        numPanel.add(ac);
+        numPanel.add(neg);
+        numPanel.add(mod);
+        numPanel.add(divide);
 
-        menuPanel.add(buttons[4]);
-        menuPanel.add(buttons[5]);
-        menuPanel.add(buttons[6]);
-        menuPanel.add(subtract);
+        numPanel.add(buttons[7]);
+        numPanel.add(buttons[8]);
+        numPanel.add(buttons[9]);
+        numPanel.add(multiply);
 
-        menuPanel.add(buttons[1]);
-        menuPanel.add(buttons[2]);
-        menuPanel.add(buttons[3]);
-        menuPanel.add(add);
+        numPanel.add(buttons[4]);
+        numPanel.add(buttons[5]);
+        numPanel.add(buttons[6]);
+        numPanel.add(subtract);
 
-        menuPanel.add(buttons[0]);
-        menuPanel.add(dot);
-        menuPanel.add(eq);
+        numPanel.add(buttons[1]);
+        numPanel.add(buttons[2]);
+        numPanel.add(buttons[3]);
+        numPanel.add(add);
+
+        numPanel.add(del);
+        numPanel.add(buttons[0]);
+        numPanel.add(dot);
+        numPanel.add(eq);
+
     }
 
-    /*
-    private class ButtonKeyListener implements KeyListener {
+    private class CalculatorKeyListener implements KeyListener {
+        /*
+        Key Codes
+        0-9: (48 - 57)
+        = or +: 61
+        -: 45
+        *: 56
+        /: 47
+        %: 53
+        .: 46
+        shift: 16
+        enter: 10
+        */
+
         @Override
         public void keyTyped( KeyEvent evt ) {
-            JOptionPane.showMessageDialog(menuPanel, evt.getKeyChar());
+            ;
         }
 
         @Override
         public void keyPressed( KeyEvent evt ) {
+            int code = evt.getKeyCode();
+            if( code == 16 ){
+                shift = true;
+            }
+            else if( code >= 48 && code <= 57){
+                if(shift){
+                    if( code == 53 ){
+                        solver.setOp("%");
+                    } else if( code == 56 ){
+                        solver.setOp("*");
+                    }
+                } else {
+                    solver.setNumber(evt.getKeyChar() + "");
+                }
+            } else if( code == 45 && !shift ){
+                solver.setOp("-");
+            } else if( code == 61 ){
+                if(shift){
+                    solver.setOp("+");
+                } else {
+                    solver.setOp("=");
+                }
+            } else if( code == 47 && !shift ){
+                solver.setOp("/");
+            } else if( code == 46 ){
+                solver.setOp(".");
+            } else if( code == 10 ){
+                solver.setOp("=");
+            } else if(code == 8 ){
+                solver.delete();
+            }
+            repaint();
         }
 
         @Override
         public void keyReleased( KeyEvent evt ) {
+            int code = evt.getKeyCode();
+            if( code == 16 ){
+                shift = false;
+            }
         }
     }
-    */
-
 }

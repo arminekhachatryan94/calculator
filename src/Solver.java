@@ -121,6 +121,8 @@ public class Solver {
                 }
                 this.solved = false;
             }
+        } else if( op == "←" ){
+            delete();
         }
         else {
             // JOptionPane.showMessageDialog(menuPanel,calculation + " " + opSet + ": " + op + " " + num2Set + ": " + num2);
@@ -138,7 +140,7 @@ public class Solver {
     public String subtract(String n1, String n2) {
         BigDecimal dec1 = new BigDecimal(n1);
         BigDecimal dec2 = new BigDecimal(n2);
-        dec1 = dec2.subtract(dec1);
+        dec1 = dec1.subtract(dec2);
         return dec1.toString();
     }
 
@@ -154,7 +156,6 @@ public class Solver {
         BigDecimal dec2 = new BigDecimal(n2);
         if( dec2.doubleValue() == 0 ){
             this.div_0 = true;
-            JOptionPane.showMessageDialog(null, "Division by zero.");
             return "0";
         } else {
             double quotient = dec1.doubleValue()/dec2.doubleValue();
@@ -171,6 +172,28 @@ public class Solver {
         } else {
             double remainder = dec1.doubleValue()%dec2.doubleValue();
             return new BigDecimal(remainder).toString();
+        }
+    }
+
+    public void delete() {
+        if( opSet ){
+            if( num2 == "0" ){
+                ;
+            } else if( num2.length() == 1 ) {
+                num2 = "0";
+            } else {
+                num2 = num2.substring(0, num2.length()-1);
+            }
+            updateScreen(num2);
+        } else {
+            if( calculation == "0" ){
+                ;
+            } else if( calculation.length() == 1 ){
+                calculation = "0";
+            } else {
+                calculation = calculation.substring(0, calculation.length()-1);
+            }
+            updateScreen(calculation);
         }
     }
 

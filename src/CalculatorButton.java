@@ -35,7 +35,6 @@ public class CalculatorButton extends JButton implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         String command = e.getActionCommand();
-        System.out.println(command);
 
         if( command.charAt(0) >= '0' && command.charAt(0) <= '9' ) {
             solver.setNumber(command);
