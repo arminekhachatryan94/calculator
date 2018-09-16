@@ -25,6 +25,7 @@ public class CalculatorFrame extends JFrame {
     private static CalculatorButton add, subtract, multiply, divide, mod, eq, ac, dot, neg, del;
 
     // calculator
+    public static CalculatorMenu menuBar;
     public static JLabel screenLabel;
     public static JPanel screenPanel;
     public static JPanel numPanel;
@@ -40,9 +41,12 @@ public class CalculatorFrame extends JFrame {
         createScreen();
 
         initializeButtons();
+        createNumPad();
+
         createMenu();
 
-        getContentPane().add(screenPanel, BorderLayout.NORTH);
+        getContentPane().add(menuBar, BorderLayout.PAGE_START);
+        getContentPane().add(screenPanel, BorderLayout.CENTER);
         getContentPane().add(numPanel, BorderLayout.PAGE_END);
         setResizable(false);
         pack();
@@ -68,6 +72,10 @@ public class CalculatorFrame extends JFrame {
         del = new CalculatorButton("←", screenLabel, solver);
     }
 
+    public void createMenu() {
+        menuBar = new CalculatorMenu();
+    }
+
     public void createScreen(){
         screenLabel = new JLabel();
         screenLabel.setSize(new Dimension(PANEL_WIDTH, PANEL_HEIGHT));
@@ -86,7 +94,7 @@ public class CalculatorFrame extends JFrame {
         solver = new Solver(screenLabel);
     }
 
-    public void createMenu(){
+    public void createNumPad(){
         numPanel = new JPanel();
         numPanel.setPreferredSize(new Dimension(MENU_WIDTH, MENU_HEIGHT));
         numPanel.setLayout(new GridLayout(5, 4));
