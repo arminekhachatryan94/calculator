@@ -3,7 +3,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 
 public class CalculatorButton extends JButton implements ActionListener {
     public JLabel screen;
@@ -29,12 +28,14 @@ public class CalculatorButton extends JButton implements ActionListener {
         // solver
         this.solver = new Solver(screen);
         this.solver = solver;
+
+        addActionListener(this);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         String command = e.getActionCommand();
-        JOptionPane.showMessageDialog(null, command);
+        System.out.println(command);
 
         if( command.charAt(0) >= '0' && command.charAt(0) <= '9' ) {
             solver.setNumber(command);
