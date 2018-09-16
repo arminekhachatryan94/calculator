@@ -153,7 +153,7 @@ public class CalculatorFrame extends JFrame {
                     if( code == 53 ){
                         solver.setOp("%");
                     } else if( code == 56 ){
-                        solver.setOp("*");
+                        solver.setOp("x");
                     }
                 } else {
                     solver.setNumber(evt.getKeyChar() + "");
