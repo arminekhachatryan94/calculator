@@ -128,83 +128,71 @@ public class Solver {
         }
     }
 
-    public void add(){
-    ;
+    public String add(String n1, String n2){
+        BigDecimal dec1 = new BigDecimal(n1);
+        BigDecimal dec2 = new BigDecimal(n2);
+        dec1 = dec2.add(dec1);
+        return dec1.toString();
     }
 
-    public void subtract() {
-        ;
+    public String subtract(String n1, String n2) {
+        BigDecimal dec1 = new BigDecimal(n1);
+        BigDecimal dec2 = new BigDecimal(n2);
+        dec1 = dec2.subtract(dec1);
+        return dec1.toString();
     }
 
-    public void multiply() {
-        ;
+    public String multiply(String n1, String n2) {
+        BigDecimal dec1 = new BigDecimal(n1);
+        BigDecimal dec2 = new BigDecimal(n2);
+        dec1 = dec2.multiply(dec1);
+        return dec1.toString();
     }
 
-    public void divide() {
-        ;
+    public String divide(String n1, String n2) {
+        BigDecimal dec1 = new BigDecimal(n1);
+        BigDecimal dec2 = new BigDecimal(n2);
+        if( dec2.doubleValue() == 0 ){
+            this.div_0 = true;
+            JOptionPane.showMessageDialog(null, "Division by zero.");
+            return "0";
+        } else {
+            double quotient = dec1.doubleValue()/dec2.doubleValue();
+            return new BigDecimal(quotient).toString();
+        }
     }
 
-    public void mod() {
-        ;
+    public String mod(String n1, String n2) {
+        BigDecimal dec1 = new BigDecimal(n1);
+        BigDecimal dec2 = new BigDecimal(n2);
+        if( dec2.doubleValue() == 0 ){
+            this.div_0 = true;
+            return "0";
+        } else {
+            double remainder = dec1.doubleValue()%dec2.doubleValue();
+            return new BigDecimal(remainder).toString();
+        }
     }
 
     public void evaluate() {
         if( opSet ){
-            BigDecimal calc = new BigDecimal(this.calculation);
-            BigDecimal n2 = new BigDecimal(this.num2);
-            // try {
             switch (this.op) {
                 case "+":
-                    calc = calc.add(n2);
-                    this.calculation = calc.toString();
+                    this.calculation = add(calculation, num2);
                     break;
                 case "-":
-                    calc = calc.subtract(n2);
-                    this.calculation = calc.toString();
+                    this.calculation = subtract(calculation, num2);
                     break;
                 case "x":
-                    calc = calc.multiply(n2);
-                    this.calculation = calc.toString();
+                    this.calculation = multiply(calculation, num2);
                     break;
                 case "/":
-                    if( n2.doubleValue() == 0 ){
-                        this.calculation = "0";
-                        this.div_0 = true;
-                        // JOptionPane.showMessageDialog(menuPanel, "Division by zero.");
-                    } else {
-                        double quotient = calc.doubleValue()/n2.doubleValue();
-                        calc = new BigDecimal(quotient);
-                        this.calculation = calc.toString();
-                        //calc = calc.divide(n2);
-                        //calculation = calc.toString();
-                    }
+                    calculation = divide(calculation, num2);
                     break;
                 case "%":
-                    if( n2.doubleValue() == 0 ){
-                        this.calculation = "0";
-                        this.div_0 = true;
-                    } else {
-                            /*
-                            calc = calc.remainder(n2);
-                            calculation = calc.toString();
-                            */
-                        double remainder = calc.doubleValue()%n2.doubleValue();
-                        calc = new BigDecimal(remainder);
-                        this.calculation = calc.toString();
-                    }
+                    calculation = mod(calculation, num2);
                     break;
             }
-            /* } catch(Exception e){
-                if( op == "/" ) {
-                    if( n2 == new BigDecimal("0") ){
-                        JOptionPane.showMessageDialog(menuPanel, "division by zero");
-                    } else {
-                        BigDecimal calc2 = new BigDecimal(calculation);
-                        calc2.setScale(5).divide(n2, BigDecimal.ROUND_HALF_UP);
-                        calculation = calc.toString();
-                    }
-                }
-            }*/
 
             calculation = new BigDecimal(calculation).stripTrailingZeros().toString();
 
@@ -223,11 +211,6 @@ public class Solver {
         } else {
             this.screen.setText(text);
         }
-        /* if( n.remainder(new BigDecimal(1)) != new BigDecimal(0) ) {
-            labelPanel.setText(val);
-         } else {
-            labelPanel.setText(val);
-        } */
     }
 
 }
