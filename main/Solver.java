@@ -3,15 +3,15 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 public class Solver {
-    private static String calculation;
-    private static String op;
-    private static String num2;
-    private static boolean num2Set;
-    private static boolean opSet;
-    private static boolean solved;
-    private static boolean div_0;
+    public static String calculation;
+    public static String op;
+    public static String num2;
+    public static boolean num2Set;
+    public static boolean opSet;
+    public static boolean solved;
+    public static boolean div_0;
 
-    private JLabel screen;
+    public JLabel screen;
 
     public Solver(JLabel screen) {
         this.screen = new JLabel();
