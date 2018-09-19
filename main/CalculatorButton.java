@@ -20,6 +20,7 @@ public class CalculatorButton extends JButton implements ActionListener {
         }
         setBorderPainted(false);
         setOpaque(true);
+        setFocusable(false);
 
         // screen
         this.screen = new JLabel();

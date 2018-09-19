@@ -22,8 +22,8 @@ public class Solver {
         op = "=";
         num2Set = false;
         opSet = false;
-        solved = false;
         div_0 = false;
+        solved = false;
     }
 
     public void setNumber(String num) {
@@ -57,6 +57,8 @@ public class Solver {
             this.op = "=";
             this.opSet = false;
             this.num2Set = false;
+            this.div_0 = false;
+            this.solved = false;
             updateScreen(this.calculation);
         } else if( op == "±" ) {
             if (this.num2Set) {
