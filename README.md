@@ -4,7 +4,7 @@
 ``` bash
 javac main/*.java -d out
 cd out
-javac Calculator
+java Calculator
 ```
 
 ## To run JUnit tests:
